@@ -8,6 +8,7 @@ import AppNavbar from "./Components/Navbar";
 import AboutUs from "./Components/AboutUs";
 import Contact from "./Components/ContactUs";
 import Login from "./Components/login";
+import Signup from "./Components/signup";
 // import Contact from "./Components/Contact";
 
 function App() {
@@ -18,8 +19,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/products/:productslug" element={<ProductDetail />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           {/* Add routes for About and Contact as needed */}

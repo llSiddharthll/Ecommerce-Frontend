@@ -3,17 +3,27 @@ import React from "react";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { isAuthenticated, logout } from "./authService";
+import { useState, useEffect } from "react";
 
 export default function AppNavbar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const user = isAuthenticated();
-  console.log("user", user);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await isAuthenticated();
+      setUser(userData); // Update user state with fetched data
+    };
+    fetchUser();
+  }, []);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
+
+  console.log("user", user);
 
   return (
     <Navbar
@@ -45,7 +55,7 @@ export default function AppNavbar() {
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">{`${user.firstName} ${user.lastName}`}</span>
+              <span className="block text-sm">Hello, {`${user.username}`}</span>
               <span className="block truncate text-sm font-medium">
                 {user.email}
               </span>
@@ -68,7 +78,7 @@ export default function AppNavbar() {
               Login
             </Link>
             <Link
-              to="/"
+              to="/signup"
               className="text-md py-1 px-4 rounded-md font-semibold text-white bg-blue-600 dark:text-white dark:bg-blue-500"
             >
               Signup

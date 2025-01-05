@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import axios from "axios"
+import { isAuthenticated } from "./authService";
 
 const Login = () => {
 
@@ -10,14 +11,24 @@ const Login = () => {
   })
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
+
     axios.post("http://127.0.0.1:8000/auth/token/login/", formdata)
       .then(response => {
-        console.log(response)
-        localStorage.setItem("auth_token", JSON.stringify(response.data.auth_token));
-        window.location.href = "/";
+        console.log(response);
+        if (response.data.auth_token) {
+          localStorage.setItem("auth_token", response.data.auth_token);
+          localStorage.setItem("user_credentials", JSON.stringify(formdata));
+          isAuthenticated()
+          window.location.href = "/";
+        }
+
+      })
+      .catch(error =>{
+        alert("Wrong Username or password")
       })
   }
+
   return (
     <div className="flex h-[93vh] bg-gray-100">
       {/* Left Side - Illustration */}
@@ -100,7 +111,7 @@ const Login = () => {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               Don’t have an account?{" "}
-              <a href="/" className="text-blue-500 hover:text-blue-700">
+              <a href="/signup" className="text-blue-500 hover:text-blue-700">
                 Sign up
               </a>
             </p>

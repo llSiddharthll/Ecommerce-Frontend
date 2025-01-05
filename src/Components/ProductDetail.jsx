@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 
 const Star = ({ filled }) => (
   <svg
-    className={`w-5 h-5 ${
-      filled ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
-    }`}
+    className={`w-5 h-5 ${filled ? "text-yellow-400 fill-yellow-400" : "text-gray-300"
+      }`}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     stroke="currentColor"
@@ -18,14 +17,14 @@ const Star = ({ filled }) => (
 );
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { productslug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/products/${productslug}`);
         const data = await response.json();
         setProduct(data);
       } catch (error) {
@@ -36,7 +35,7 @@ const ProductDetail = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [productslug]);
 
   if (loading) {
     return <ProductDetailSkeleton />;
@@ -72,7 +71,7 @@ const ProductDetail = () => {
         <div className="relative h-80 md:h-full bg-gray-100 flex items-center justify-center p-8">
           <img
             src={product.image}
-            alt={product.title}
+            alt={product.name}
             className="max-h-full max-w-full object-contain transition-all duration-300 ease-in-out transform hover:scale-105"
           />
         </div>
@@ -81,23 +80,24 @@ const ProductDetail = () => {
         <div className="p-8 flex flex-col justify-between">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-              {product.title}
+              {product.name}
             </h1>
             <p className="text-gray-600 mb-6">{product.description}</p>
 
             {/* Price and Rating */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-3xl font-bold text-indigo-600">
-                ${product.price.toFixed(2)}
+                ${product.price}
               </p>
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} filled={i < Math.round(product.rating.rate)} />
-                ))}
-                <span className="ml-2 text-sm text-gray-600">
-                  ({product.rating.count} reviews)
-                </span>
-              </div>
+              {product.rating &&
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} filled={i < Math.round(product.rating.rate)} />
+                  ))}
+                  <span className="ml-2 text-sm text-gray-600">
+                    ({product.rating.count} reviews)
+                  </span>
+                </div>}
             </div>
 
             {/* Category */}

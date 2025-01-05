@@ -3,7 +3,7 @@ import React from "react";
 
 const Newsletter = () => {
   return (
-    <div className="py-16 px-6 lg:px-24 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 text-white text-center rounded-lg shadow-lg">
+    <div className="py-16 px-6 lg:px-24 bg-gradient-to-r from-purple-200 via-indigo-200 to-blue-200 text-center rounded-lg shadow-lg">
       {/* Title */}
       <h2 className="text-3xl lg:text-5xl font-extrabold mb-6">
         Stay Connected with Us
@@ -29,9 +29,9 @@ const Newsletter = () => {
 
       {/* Decorative Elements */}
       <div className="mt-8 flex justify-center space-x-4">
-        <span className="bg-white h-2 w-2 rounded-full animate-pulse"></span>
-        <span className="bg-white h-2 w-2 rounded-full animate-pulse"></span>
-        <span className="bg-white h-2 w-2 rounded-full animate-pulse"></span>
+        <span className="bg-black h-2 w-2 rounded-full animate-pulse"></span>
+        <span className="bg-black h-2 w-2 rounded-full animate-pulse"></span>
+        <span className="bg-black h-2 w-2 rounded-full animate-pulse"></span>
       </div>
     </div>
   );
