@@ -12,7 +12,6 @@ export const isAuthenticated = async () => {
   }
 
   const auth_str = `Token ${token}`;
-  console.log("Authorization Header:", auth_str);
 
   try {
     const response = await axios.get("http://127.0.0.1:8000/auth/users/me/", {
@@ -20,7 +19,6 @@ export const isAuthenticated = async () => {
         Authorization: auth_str,
       },
     });
-    console.log("User data:", response.data);
     localStorage.setItem("user_data", JSON.stringify(response.data));
     return response.data; // Return user data if authenticated
   } catch (error) {

@@ -9,6 +9,8 @@ import AboutUs from "./Components/AboutUs";
 import Contact from "./Components/ContactUs";
 import Login from "./Components/login";
 import Signup from "./Components/signup";
+import Cart from "./Components/Cart";
+import Dashboard from "./Components/Dashboard";
 // import Contact from "./Components/Contact";
 
 function App() {
@@ -24,7 +26,8 @@ function App() {
           <Route path="/products/:productslug" element={<ProductDetail />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
-          {/* Add routes for About and Contact as needed */}
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </Router>

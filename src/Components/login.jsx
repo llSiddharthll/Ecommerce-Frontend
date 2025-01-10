@@ -18,7 +18,6 @@ const Login = () => {
         console.log(response);
         if (response.data.auth_token) {
           localStorage.setItem("auth_token", response.data.auth_token);
-          localStorage.setItem("user_credentials", JSON.stringify(formdata));
           isAuthenticated()
           window.location.href = "/";
         }

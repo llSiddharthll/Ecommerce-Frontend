@@ -4,6 +4,7 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { isAuthenticated, logout } from "./authService";
 import { useState, useEffect } from "react";
+import { TiShoppingCart } from "react-icons/ti";
 
 export default function AppNavbar() {
   const location = useLocation();
@@ -20,10 +21,8 @@ export default function AppNavbar() {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    window.location.reload("/")
   };
-
-  console.log("user", user);
 
   return (
     <Navbar
@@ -41,8 +40,11 @@ export default function AppNavbar() {
           My Website
         </span>
       </Navbar.Brand>
-      <div className="flex md:order-2">
+      <div className="flex gap-2 md:order-2">
+        
         {user ? (
+          <div className="flex gap-2 items-center">
+          <Link to="/cart" className="text-4xl text-gray-600"><TiShoppingCart /></Link>
           <Dropdown
             arrowIcon={false}
             inline
@@ -69,6 +71,7 @@ export default function AppNavbar() {
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
           </Dropdown>
+          </div>
         ) : (
           <div className="flex items-center">
             <Link
@@ -89,7 +92,7 @@ export default function AppNavbar() {
       </div>
       <Navbar.Collapse className="">
         <Navbar.Link
-          className="text-md font-semibold"
+          className={`${location.pathname === "/"? "text-red-200": ""}`}
           as={Link}
           to="/"
           active={location.pathname === "/"}

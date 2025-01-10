@@ -114,8 +114,9 @@ function Products() {
               {filteredData.map((item, index) => (
                 <Link to={`/products/${item.slug}`} key={index}>
                   <ProductCard
+                    id={item.id}
                     image={item.image}
-                    title={item.name}
+                    name={item.name}
                     price={item.price}
                     description={item.description}
                     className="hover:shadow-lg transition-shadow duration-300"
